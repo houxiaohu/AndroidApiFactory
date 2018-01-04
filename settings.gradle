@@ -1,0 +1,1 @@
+include ':app', ':basic_component_annotation1', ':basic_component_compile'

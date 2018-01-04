@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'bintray-release'//添加
+targetCompatibility = '1.7'
+sourceCompatibility = '1.7'
+
+
+dependencies {
+    compile project(':basic_component_annotation1')
+    compile 'com.google.auto.service:auto-service:1.0-rc2'
+    compile 'com.squareup:javapoet:1.9.0'
+}
+
+publish {
+    artifactId = 'apiFactory-compile'
+    userOrg = rootProject.userOrg
+    groupId = rootProject.groupId
+    uploadName = rootProject.uploadName
+    publishVersion = rootProject.publishVersion
+    desc = rootProject.description
+    website = rootProject.website
+    licences = rootProject.licences
+}

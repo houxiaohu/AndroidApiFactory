@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'bintray-release'//添加
+targetCompatibility = '1.7'
+sourceCompatibility = '1.7'
+
+//  解决build警告：编码GBK的不可映射字符
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+//添加
+publish {
+    artifactId = 'apiFactory-annotation'
+    userOrg = rootProject.userOrg
+    groupId = rootProject.groupId
+    uploadName = rootProject.uploadName
+    publishVersion = rootProject.publishVersion
+    desc = rootProject.description
+    website = rootProject.website
+    licences = rootProject.licences
+}

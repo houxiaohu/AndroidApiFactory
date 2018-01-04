@@ -1,0 +1,48 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: "config.gradle"
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.1'
+
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        //butterknife
+
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
+
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        classpath 'com.novoda:bintray-release:0.3.4'//添加
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven{url "https://jitpack.io"}
+        mavenCentral()
+    }
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+
+//添加
+ext {
+    userOrg = 'houdahu'
+    groupId = 'com.hxh.component'
+    uploadName = 'android-basiclib-apifactory'
+    publishVersion = '0.0.1'
+    desc = 'Request code can be generated automatically'
+    website = 'https://github.com/HouXiaohu/androidbasiclib'
+    licences = ['Apache-2.0']
+}
