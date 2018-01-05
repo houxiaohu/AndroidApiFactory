@@ -18,7 +18,7 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
-        classpath 'com.novoda:bintray-release:0.3.4'//添加
+        classpath 'com.novoda:bintray-release:0.4.0'//添加
     }
 }
 
@@ -27,6 +27,10 @@ allprojects {
         jcenter()
         maven{url "https://jitpack.io"}
         mavenCentral()
+    }
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
     }
 }
 
@@ -40,9 +44,13 @@ task clean(type: Delete) {
 ext {
     userOrg = 'houdahu'
     groupId = 'com.hxh.component'
-    uploadName = 'android-basiclib-apifactory'
-    publishVersion = '0.0.1'
+    uploadName = 'AndroidApiFactory'
+    publishVersion = '1.0.0'
     desc = 'Request code can be generated automatically'
     website = 'https://github.com/HouXiaohu/androidbasiclib'
     licences = ['Apache-2.0']
+
+
 }
+
+

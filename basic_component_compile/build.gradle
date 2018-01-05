@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply plugin: 'bintray-release'//添加
+apply plugin: 'com.novoda.bintray-release'
 targetCompatibility = '1.7'
 sourceCompatibility = '1.7'
 
@@ -19,4 +19,7 @@ publish {
     desc = rootProject.description
     website = rootProject.website
     licences = rootProject.licences
+
+
 }
+
