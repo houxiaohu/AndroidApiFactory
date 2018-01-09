@@ -4,6 +4,8 @@ package com.hxh.component.annotationcompile.processor;
 import com.hxh.component.annotationcompile.IProcessor;
 import com.hxh.component.annotationcompile.util.ProcessorUtils;
 import com.hxh.component.annotationcompile.util.TypeNameUtil;
+import com.hxh.component.basicannotation.annotation.ApiServices;
+import com.hxh.component.basicannotation.annotation.ApiServicesOtherPath;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -22,9 +24,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
-
-import com.hxh.component.basicannotation.annotation.ApiServices;
-import com.hxh.component.basicannotation.annotation.ApiServicesOtherPath;
 
 /**
  * Created by hxh on 2017/7/14.
@@ -67,19 +66,19 @@ public class ApiProcessors implements IProcessor {
             for (TypeElement typeElement : ElementFilter.typesIn(roundEnv.getElementsAnnotatedWith(ApiServices.class))) {
                 //获取主要地址的Tag
                 String mainPathTag = typeElement.getAnnotation(ApiServices.class).value();
-                if(null == mainPathTag || "".equals(mainPathTag))
-                {
-                    ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.ERROR,"ApiServices must have pathTag!!");
-                    return false;
-                }
+                //                if(null == mainPathTag || "".equals(mainPathTag))
+                //                {
+                //                    ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.ERROR,"ApiServices must have pathTag!!");
+                //                    return false;
+                //                }
                 pageageName =  ProcessorUtils.getINSTANCE().getmEleUtils().getPackageOf(typeElement).getQualifiedName().toString();
                 //得到这个类中的所有API方法
-              //  ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.NOTE,"正在生成代码，生成路径"+pageageName);
-              //  ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.NOTE,"服务器地址"+mainPathTag);
+                //  ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.NOTE,"正在生成代码，生成路径"+pageageName);
+                //  ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.NOTE,"服务器地址"+mainPathTag);
 
                 getAllMethodName(typeElement);
-               // ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.NOTE,"方法检查完毕");
-               //循环方法
+                // ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.NOTE,"方法检查完毕");
+                //循环方法
                 for (Element element : typeElement.getEnclosedElements()) {
                     //得到其中一个方法
                     ExecutableElement methodEle = (ExecutableElement) element;
@@ -158,11 +157,11 @@ public class ApiProcessors implements IProcessor {
                         {
                             methodBuilder
                                     .addStatement(
-                                    getmethodStament1(getParamCodeStr.toString(),isString,mainPathTag,otherPathTag),
-                                    TypeNameUtil.baseapi,
-                                    typeElement.getSimpleName().toString(),
-                                    methodEle.getSimpleName().toString(),
-                                    TypeNameUtil.rxutils
+                                            getmethodStament1(getParamCodeStr.toString(),isString,mainPathTag,otherPathTag),
+                                            TypeNameUtil.baseapi,
+                                            typeElement.getSimpleName().toString(),
+                                            methodEle.getSimpleName().toString(),
+                                            TypeNameUtil.rxutils
                                     );
                         }else
                         {
@@ -172,7 +171,7 @@ public class ApiProcessors implements IProcessor {
                                     methodEle.getSimpleName().toString(),
                                     getParamCodeStr.toString(),
                                     TypeNameUtil.rxutils
-                                    );
+                            );
                         }
                         //endregion
                     }

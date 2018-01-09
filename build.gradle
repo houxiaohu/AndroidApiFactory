@@ -45,7 +45,7 @@ ext {
     userOrg = 'houdahu'
     groupId = 'com.hxh.component'
     uploadName = 'AndroidApiFactory'
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = 'Request code can be generated automatically'
     website = 'https://github.com/HouXiaohu/androidbasiclib'
     licences = ['Apache-2.0']
