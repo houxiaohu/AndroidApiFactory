@@ -1,0 +1,10 @@
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            def localRepo = "${rootProject.buildDir}/repo"
+            repository(url: "file://${localRepo}")
+        }
+    }
+}

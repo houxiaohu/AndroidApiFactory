@@ -2,11 +2,16 @@
 apply from: "config.gradle"
 buildscript {
     repositories {
+        maven {
+            name = "prebuilts"
+            url = rootProject.uri("prebuild/repo")
+        }
         jcenter()
         mavenCentral()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:3.2.1'
 
 
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
@@ -24,9 +29,13 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        maven {
+            name = "prebuilts"
+            url = rootProject.uri("prebuild/repo")
+        }
         maven{url "https://jitpack.io"}
         mavenCentral()
+        google()
     }
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet')
@@ -49,8 +58,11 @@ ext {
     desc = 'Request code can be generated automatically'
     website = 'https://github.com/HouXiaohu/androidbasiclib'
     licences = ['Apache-2.0']
-
-
 }
 
+def uploadConfig = file('upload.gradle')
 
+
+subprojects {
+    apply from: uploadConfig
+}

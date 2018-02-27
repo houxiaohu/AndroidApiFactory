@@ -8,6 +8,9 @@ tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
+group = rootProject.groupId
+version = rootProject.ext.publishVersion
+
 //添加
 publish {
     artifactId = 'apiFactory-annotation'
@@ -18,7 +21,5 @@ publish {
     desc = rootProject.description
     website = rootProject.website
     licences = rootProject.licences
-
-
 }
 

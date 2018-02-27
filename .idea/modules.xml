@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/android-basiclib-compile.iml" filepath="$PROJECT_DIR$/android-basiclib-compile.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/basic_component_annotation1/basic_component_annotation1.iml" filepath="$PROJECT_DIR$/basic_component_annotation1/basic_component_annotation1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/basic_component_compile/basic_component_compile.iml" filepath="$PROJECT_DIR$/basic_component_compile/basic_component_compile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidApiFactory.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidApiFactory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidApiFactory.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidApiFactory.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/basic_component_annotation1/AndroidApiFactory.basic_component_annotation1.iml" filepath="$PROJECT_DIR$/.idea/modules/basic_component_annotation1/AndroidApiFactory.basic_component_annotation1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/basic_component_compile/AndroidApiFactory.basic_component_compile.iml" filepath="$PROJECT_DIR$/.idea/modules/basic_component_compile/AndroidApiFactory.basic_component_compile.iml" />
     </modules>
   </component>
 </project>

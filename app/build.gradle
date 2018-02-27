@@ -69,24 +69,14 @@ configurations.all {
 }
 
 dependencies {
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
-
-
-//    //arouter
-//    annotationProcessor rootProject.ext.annotationCompiler["arouter-compiler"]
-//    //butterknife
-//    annotationProcessor rootProject.ext.annotationCompiler["butterknife-compiler"]
+    compile 'androidx.recyclerview:recyclerview:1.0.0'
+    compile 'androidx.appcompat:appcompat:1.0.0'
 
     //pagebottomtab
    // compile rootProject.ext.dependencies["pager_bottom_tab_strip"]
+    annotationProcessor 'com.hxh.component:basic_component_compile:1.0.1'
+    implementation 'com.hxh.component:basic_component_annotation1:1.0.1'
 
-
-
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 }
 
 //apply plugin: com.hxh.aspjplugin.AspectjPlugin
