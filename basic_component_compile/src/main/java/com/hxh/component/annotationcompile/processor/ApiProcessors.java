@@ -6,6 +6,7 @@ import com.hxh.component.annotationcompile.util.ProcessorUtils;
 import com.hxh.component.annotationcompile.util.TypeNameUtil;
 import com.hxh.component.basicannotation.annotation.ApiServices;
 import com.hxh.component.basicannotation.annotation.ApiServicesOtherPath;
+import com.hxh.component.basicannotation.annotation.UseMRecycleView;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -131,51 +132,55 @@ public class ApiProcessors implements IProcessor {
                     ProcessorUtils.getINSTANCE().getmMessager().printMessage(Diagnostic.Kind.NOTE,"进入动态生成参数阶段");
 
                     //region 开始进行分支判断，如果是以 NetResultBean 生成参数
-                    if(returntypename.toString().contains(DATA_NAME))
+                    //先判断有没有应用 @UseMRecycleView 这个注解
+                    if(null != methodEle.getAnnotation(UseMRecycleView.class) || returntypename.toString().contains(DATA_NAME))
                     {
-                        methodBuilder.returns(TypeNameUtil.rx_observable);
-                        //让其参数为HashMap
-                        methodBuilder
-                                .addParameter(ParameterizedTypeName.get(HashMap.class,String.class,Object.class),"param");
-
-                        StringBuffer getParamCodeStr = new StringBuffer();
-
-                        for (int i = 0; i < methodEle.getParameters().size(); i++)
+                        //兼容老版本
+                        if(returntypename.toString().contains(DATA_NAME))
                         {
-                            VariableElement variableElement = methodEle.getParameters().get(i);
-                            if(i+1 == methodEle.getParameters().size())
-                            {
+                            methodBuilder.returns(TypeNameUtil.rx_observable);
+                            //让其参数为HashMap
+                            methodBuilder
+                                    .addParameter(ParameterizedTypeName.get(HashMap.class,String.class,Object.class),"param");
 
-                                getParamCodeStr.append("(("+ TypeName.get(variableElement.asType()).toString()+")param.get(\""+variableElement.getSimpleName()+"\"))");
+                            StringBuffer getParamCodeStr = new StringBuffer();
+
+                            for (int i = 0; i < methodEle.getParameters().size(); i++)
+                            {
+                                VariableElement variableElement = methodEle.getParameters().get(i);
+                                if(i+1 == methodEle.getParameters().size())
+                                {
+
+                                    getParamCodeStr.append("(("+ TypeName.get(variableElement.asType()).toString()+")param.get(\""+variableElement.getSimpleName()+"\"))");
+                                }else
+                                {
+                                    getParamCodeStr.append("(("+ TypeName.get(variableElement.asType()).toString()+")param.get(\""+variableElement.getSimpleName()+"\")),");
+                                }
+                            }
+                            //region 生成方法体
+                            if("".equals(getParamCodeStr.toString()))
+                            {
+                                methodBuilder
+                                        .addStatement(
+                                                getmethodStament1(getParamCodeStr.toString(),isString,mainPathTag,otherPathTag),
+                                                TypeNameUtil.baseapi,
+                                                typeElement.getSimpleName().toString(),
+                                                methodEle.getSimpleName().toString(),
+                                                TypeNameUtil.rxutils
+                                        );
                             }else
                             {
-                                getParamCodeStr.append("(("+ TypeName.get(variableElement.asType()).toString()+")param.get(\""+variableElement.getSimpleName()+"\")),");
+                                methodBuilder.addStatement(getmethodStament1(getParamCodeStr.toString(),isString,mainPathTag,otherPathTag),
+                                        TypeNameUtil.baseapi,
+                                        typeElement.getSimpleName().toString(),
+                                        methodEle.getSimpleName().toString(),
+                                        getParamCodeStr.toString(),
+                                        TypeNameUtil.rxutils
+                                );
                             }
+                            //endregion
                         }
-                        //region 生成方法体
-                        if("".equals(getParamCodeStr.toString()))
-                        {
-                            methodBuilder
-                                    .addStatement(
-                                            getmethodStament1(getParamCodeStr.toString(),isString,mainPathTag,otherPathTag),
-                                            TypeNameUtil.baseapi,
-                                            typeElement.getSimpleName().toString(),
-                                            methodEle.getSimpleName().toString(),
-                                            TypeNameUtil.rxutils
-                                    );
-                        }else
-                        {
-                            methodBuilder.addStatement(getmethodStament1(getParamCodeStr.toString(),isString,mainPathTag,otherPathTag),
-                                    TypeNameUtil.baseapi,
-                                    typeElement.getSimpleName().toString(),
-                                    methodEle.getSimpleName().toString(),
-                                    getParamCodeStr.toString(),
-                                    TypeNameUtil.rxutils
-                            );
-                        }
-                        //endregion
                     }
-
                     else
                     {
                         methodBuilder.returns(returntypename);
